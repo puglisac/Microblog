@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, Form, Input, FormGroup, InputGroup, InputGroupAddon } from "reactstrap";
 import { updateComments } from "./actions";
 import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Comments = ({ comments, id }) => {
 	const dispatch = useDispatch();
@@ -36,8 +38,8 @@ const Comments = ({ comments, id }) => {
 				{comments.map((c) => (
 					<p>
 						{c}
-						<Button className="ml-2" color="danger" onClick={() => deleteComment(c)}>
-							X
+						<Button className="ml-2 btn-sm" color="danger" onClick={() => deleteComment(c)}>
+							<FontAwesomeIcon icon={faTrash} />
 						</Button>
 					</p>
 				))}
