@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, ButtonGroup, Jumbotron } from "reactstrap";
 import { add } from "./actions";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const NewPostForm = () => {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const initialState = {
 		title: "",
@@ -26,8 +28,9 @@ const NewPostForm = () => {
 		}
 		const { title, description, body } = formData;
 		dispatch(add(title, title, description, body));
-		setFormData(initialState);
+		history.push("/");
 	};
+	const cancel = () => history.push("/");
 
 	return (
 		<Jumbotron>
@@ -64,7 +67,9 @@ const NewPostForm = () => {
 						<Button type="submit" color="primary">
 							Add
 						</Button>
-						<Button type="button">Cancel</Button>
+						<Button onClick={cancel} type="button">
+							Cancel
+						</Button>
 					</ButtonGroup>
 				</Form>
 			</div>
