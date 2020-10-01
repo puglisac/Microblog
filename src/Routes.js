@@ -4,6 +4,7 @@ import BlogList from "./BlogList";
 import HomeCard from "./HomeCard";
 import NewPostForm from "./NewPostForm";
 import PostDetails from "./PostDetails";
+import EditPostForm from "./EditPostForm";
 
 function Routes() {
 	return (
@@ -18,6 +19,9 @@ function Routes() {
 				</Route>
 				<Route exact path="/:id">
 					<PostDetails />
+				</Route>
+				<Route exact path="/:id/edit">
+					<EditPostForm />
 				</Route>
 			</Switch>
 		</div>

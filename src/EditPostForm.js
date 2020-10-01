@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input, ButtonGroup, Jumbotron } from "reactstrap";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { addPost } from "./actionCreators";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import { editPost } from "./actionCreators";
+import { getOnePost } from "./actionCreators";
 
-const NewPostForm = () => {
+const EditPostForm = () => {
+	const { posts } = useSelector((st) => st.posts);
+	const { id } = useParams();
 	const history = useHistory();
 	const dispatch = useDispatch();
 
 	const initialState = {
-		title: "",
-		description: "",
-		body: ""
+		title: posts.title,
+		description: posts.description,
+		body: posts.body
 	};
+
 	const [ formData, setFormData ] = useState(initialState);
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -27,11 +31,18 @@ const NewPostForm = () => {
 		if (e.target.value === "cancel") {
 			history.push("/");
 		} else {
-			dispatch(addPost(formData));
+			dispatch(editPost(id, formData));
 			history.push("/");
 		}
 	};
 	const cancel = () => history.push("/");
+
+	useEffect(
+		() => {
+			dispatch(getOnePost(id));
+		},
+		[ dispatch, id ]
+	);
 
 	return (
 		<Jumbotron>
@@ -65,8 +76,8 @@ const NewPostForm = () => {
 						<Input onChange={handleChange} type="textarea" name="body" id="body" value={formData.body} />
 					</FormGroup>
 					<ButtonGroup>
-						<Button type="submit" color="primary">
-							Add
+						<Button type="submit" color="success">
+							Edit
 						</Button>
 						<Button onClick={cancel} type="button">
 							Cancel
@@ -77,4 +88,4 @@ const NewPostForm = () => {
 		</Jumbotron>
 	);
 };
-export default NewPostForm;
+export default EditPostForm;

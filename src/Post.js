@@ -1,5 +1,6 @@
 import React from "react";
 import { Toast, ToastBody, ToastHeader } from "reactstrap";
+import Voter from "./Voter";
 
 const Post = ({ id, post }) => {
 	return (
@@ -9,6 +10,7 @@ const Post = ({ id, post }) => {
 					<ToastHeader>{post.title}</ToastHeader>
 				</a>
 				<ToastBody>{post.description}</ToastBody>
+				<Voter id={id} num={post.votes} />
 			</Toast>
 		</div>
 	);

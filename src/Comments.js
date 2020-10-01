@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input, FormGroup, InputGroup, InputGroupAddon } from "reactstrap";
-import { updateComments } from "./actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { addComment, getComments, deleteComment } from "./actionCreators";
 
-const Comments = ({ comments, id }) => {
+const Comments = ({ id }) => {
 	const dispatch = useDispatch();
+	const { comments } = useSelector((st) => st.comments);
+
 	const initialState = {
 		comment: ""
 	};
@@ -18,27 +20,34 @@ const Comments = ({ comments, id }) => {
 			[name]: value
 		}));
 	};
-	const deleteComment = (text) => {
-		const filtered = comments.filter((c) => c !== text);
-		dispatch(updateComments(id, filtered));
+	const removeComment = (commId) => {
+		dispatch(deleteComment(id, commId));
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const { comment } = formData;
-		comments.push(comment);
-		dispatch(updateComments(id, comments));
+		dispatch(addComment(id, comment));
 		setFormData(initialState);
 	};
 
+	useEffect(
+		() => {
+			dispatch(getComments(id));
+		},
+		[ dispatch, id ]
+	);
+	if (!comments) {
+		return <h1>Loading</h1>;
+	}
 	return (
 		<div>
 			<h3>Comments</h3>
 			<p />
 			<ul>
 				{comments.map((c) => (
-					<p>
-						{c}
-						<Button className="ml-2 btn-sm" color="danger" onClick={() => deleteComment(c)}>
+					<p key={c.id}>
+						{c.text}
+						<Button className="ml-2 btn-sm" color="danger" onClick={() => removeComment(c.id)}>
 							<FontAwesomeIcon icon={faTrash} />
 						</Button>
 					</p>

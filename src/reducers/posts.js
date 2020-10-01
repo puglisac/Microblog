@@ -1,20 +1,11 @@
-const INITIAL_STATE = { id: { title: "title", description: "description", body: "body", comments: [ "comment" ] } };
+// const INITIAL_STATE = { id: { title: "title", description: "description", body: "body", comments: [ "comment" ] } };
 
-export default function posts(state = INITIAL_STATE, action) {
+export default function posts(state = [], action) {
 	switch (action.type) {
-		case "ADD_POST":
-			const { id, title, description, body } = action;
-			const posts = { ...state, [id]: { title, description, body } };
-			return posts;
-		case "DELETE_POST":
-			const lessPosts = { ...state };
-			delete lessPosts[action.id];
-			return lessPosts;
-		case "COMMENT":
-			const post = state[action.id];
-			post.comments = action.comments;
-			const comPosts = { ...state, [action.id]: post };
-			return comPosts;
+		case "GET_POSTS":
+			const allPosts = { ...state, posts: action.posts };
+			return allPosts;
+
 		default:
 			return state;
 	}
