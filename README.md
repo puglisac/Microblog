@@ -1,5 +1,39 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+##Microblog
+
+It’s time to build a blogging app that will eventually tie together your learning about React, Router, and Redux, along with full-stack development with a backend. Are you excited? (Hint: Of course you are!)
+
+Two things this exercise is not about:
+
+CSS or design. There are lots of things with React & Redux to work on here, so go with the simplest layout/theme you can.
+Authentication: any site visitor will be able to do any of the functionality listed.
+Part I: Basic Blog Functionality
+This first part will not use Redux and will not use a backend. You should use React state and React Router.
+
+Make a blogging site with the following features:
+
+A site header/navigation box that appears on all pages, with links to the homepage (“Blog”) and a post-add form (“Add a new post”)
+
+(We don’t always show the header on mockups, but this should always appear on all pages).
+
+
+A “new post” form that lets you enter a title, description, and body. This should be routed to /new.
+
+Canceling should redirect to the homepage.
+
+Saving should also redirect to the homepage.
+
+
+A “post view” page that shows a post. This should be routed to /[postId].
+
+It should have a button that shows an edit form for the post; this does not need to be routed differently (the url should stay the same). The edit form can look like the new-post form, above.
+
+It should have a button to delete the post. This should redirect to the homepage on deletion.
+
+
+A “homepage list” that shows the title and description of each post. The title should be a link to the detail of the post. 
+
 ## Available Scripts
 
 In the project directory, you can run:
